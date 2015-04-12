@@ -14,8 +14,8 @@ The following example will create a `WebView` and set its frame delegate:
     @import 'MochaJSDelegate.js'
 
     /*
-    This is so our script's JSContext sticks around,
-    instead of being destroyed as soon as the current execution block is finished.
+        This is so our script's JSContext sticks around,
+        instead of being destroyed as soon as the current execution block is finished.
     */
 
     COScript.currentCOScript().setShouldKeepAround_(true);
