@@ -30,6 +30,8 @@ The following example will create a `WebView` and set its frame delegate:
         "webView:didFinishLoadForFrame:": (function(webView, webFrame){
             var app = [NSApplication sharedApplication];
             [app displayDialog:"WebView Loaded!" withTitle:"Success!"];
+
+            COScript.currentCOScript().setShouldKeepAround_(false);
         })
     });
 
@@ -43,6 +45,7 @@ The following example will create a `WebView` and set its frame delegate:
     //	Set WebView's frame load delegate
 
     webView.setFrameLoadDelegate_(delegate.getClassInstance());
+    webView.setMainFrameURL_("http://google.com/");
 
 There are a few other convience methods `MochaJSDelegate` makes available, for more information check out the source.
 
