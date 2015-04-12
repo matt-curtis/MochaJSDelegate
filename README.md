@@ -4,7 +4,7 @@ MochaJSDelegate
 What is it?
 -----------
 
-`MochaJSDelegate` is a way for scripts written in CocoaScript ([Mocha](https://github.com/logancollins/Mocha)) to create delegates for use with native AppKit/UIKit classes.
+`MochaJSDelegate` is a way for scripts written in CocoaScript ([Mocha](https://github.com/logancollins/Mocha)) to create delegates for use with native AppKit/UIKit classes. This was originally written for use in Sketch 3+.
 
 How do I use it?
 ----------------
