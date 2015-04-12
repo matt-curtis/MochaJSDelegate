@@ -16,8 +16,6 @@ The following example will create a `WebView` and set its frame delegate:
     /*
     	This is so our script's JSContext sticks around,
     	instead of being destroyed as soon as the current execution block is finished.
-
-        IMPORTANT: See Notes/Caveats below for warning about JSContext retention!
     */
     
     COScript.currentCOScript().setShouldKeepAround_(true);
@@ -54,7 +52,6 @@ How does it work?
 Notes/Caveats:
 ----------
 
- - **IMPORTANT:** upon further testing, `MochaJSDelegate` will cause any script that uses it to stay alive no matter what (live fast, die young). This is due to the fact that attaching a Javascript Function (In Objective-C a `MOJavaScriptObject` class, specifically) to a method implementation causes the function (and associated `JSContext`) to be retained. This also can't be undone with `COScript.setShouldKeepAround_(false);`. Any suggestions on avoiding this retention is appreciated, as there are no obvious ways to create a "weak" reference to a JavaScript function in Mocha.
  - Every time you create a `MochaJSDelegate`,  a new `NSObject` subclass is created. I've taken pains to ensure none of them is likely to conflict with any others floating around the runtime, so the only issue one might have is a bunch of classes being created in the runtime.
  - This won't work for classes that require their delegates to implement a specific Protocol (and perform a strict check). It's technically possible for the subclass to inherit and implement the necessary Protocol, but that isn't possible at this time for certain [reasons](https://github.com/logancollins/Mocha/issues/25).
  - I'm very new to Sketch/CocoaScript/Mocha, so I might be doing something stupid here (correction: *am likely doing something stupid)
