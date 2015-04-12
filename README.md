@@ -12,34 +12,36 @@ How do I use it?
 The following example will create a `WebView` and set its frame delegate:
 
     @import 'MochaJSDelegate.js'
-    
+
     /*
-    	This is so our script's JSContext sticks around,
-    	instead of being destroyed as soon as the current execution block is finished.
+    This is so our script's JSContext sticks around,
+    instead of being destroyed as soon as the current execution block is finished.
     */
-    
+
     COScript.currentCOScript().setShouldKeepAround_(true);
-    
+
     //	Create a WebView
-    
+
     var webView = WebView.new();
-    
+
     //	Create a delegate
-    
+
     var delegate = new MochaJSDelegate({
-    	"webView:didFinishLoadForFrame:": (function(webView, webFrame){
-    		context.document.showMessage_("WebView Loaded! :) (We made it!)"); // Sketch Example
-    	})
+        "webView:didFinishLoadForFrame:": (function(webView, webFrame){
+            var app = [NSApplication sharedApplication];
+            [app displayDialog:"WebView Loaded!" withTitle:"Success!"];
+        })
     });
-    
+
     //	(You can also do this:)
-    
+
     delegate.setHandlerForSelector("webView:didFinishLoadForFrame:", function(webView, webFrame){
-    	context.document.showMessage_("WebView Loaded! :) (We made it!)"); // Sketch Example
+        var app = [NSApplication sharedApplication];
+        [app displayDialog:"WebView Loaded!" withTitle:"Success!"];
     });
-    
+
     //	Set WebView's frame load delegate
-    
+
     webView.setFrameLoadDelegate_(delegate.getClassInstance());
 
 There are a few other convience methods `MochaJSDelegate` makes available, for more information check out the source.
