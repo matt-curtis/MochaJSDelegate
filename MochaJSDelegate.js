@@ -28,8 +28,6 @@ var MochaJSDelegate = function(selectorHandlerDict){
 			var dynamicHandler = function(){
 				var functionToCall = handlers[selectorString];
 
-				log(functionToCall);
-
 				if(!functionToCall) return;
 
 				var argArray = [];
