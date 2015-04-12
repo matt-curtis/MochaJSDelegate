@@ -16,6 +16,8 @@ The following example will create a `WebView` and set its frame delegate:
     /*
     	This is so our script's JSContext sticks around,
     	instead of being destroyed as soon as the current execution block is finished.
+
+        IMPORTANT: See Notes/Caveats below for warning about JSContext retention!
     */
     
     COScript.currentCOScript().setShouldKeepAround_(true);
