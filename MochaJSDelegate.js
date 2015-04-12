@@ -18,11 +18,36 @@ var MochaJSDelegate = function(selectorHandlerDict){
 		handlers[selectorString] = func;
 
 		if(!handlerHasBeenSet){
-			delegateClassDesc.addInstanceMethodWithSelector_function_(selector, function(){
+			/*
+				For some reason, Mocha acts weird about arguments:
+				https://github.com/logancollins/Mocha/issues/28
+
+				We have to basically create a dynamic handler with a likewise dynamic number of predefined arguments.
+			*/
+
+			var dynamicHandler = function(){
 				var functionToCall = handlers[selectorString];
 
-				if(functionToCall) functionToCall.apply(delegateClassDesc, Array.prototype.slice.call(arguments));
-			});
+				log(functionToCall);
+
+				if(!functionToCall) return;
+
+				var argArray = [];
+
+				for(var i = 0, len = arguments.length; i<len; i++) argArray.push(arguments[i]);
+
+				functionToCall.apply(delegateClassDesc, argArray);
+			};
+
+			var code = /\{([\s\S]*)\}/g.exec(dynamicHandler+"")[1];
+			var args = [];
+
+			var regex = /:/g;
+			while(match = regex.exec(selectorString)) args.push("arg"+args.length);
+
+			dynamicHandler = eval("(function("+args.join(",")+"){"+code+"})"); // new Function() doesn't respect scope
+
+			delegateClassDesc.addInstanceMethodWithSelector_function_(selector, dynamicHandler);
 		}
 	};
 
