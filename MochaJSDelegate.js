@@ -30,22 +30,15 @@ var MochaJSDelegate = function(selectorHandlerDict){
 
 				if(!functionToCall) return;
 
-				var argArray = [];
-
-				for(var i = 0, len = arguments.length; i<len; i++) argArray.push(arguments[i]);
-
-				functionToCall.apply(delegateClassDesc, argArray);
+				functionToCall.apply(delegateClassDesc, arguments);
 			};
 
-			var code = /\{([\s\S]*)\}/g.exec(dynamicHandler+"")[1];
-			var args = [];
-
-			var regex = /:/g;
+			var args = [], regex = /:/g;
 			while(match = regex.exec(selectorString)) args.push("arg"+args.length);
+			
+			dynamicFunction = eval("(function("+args.join(",")+"){ dynamicHandler.apply(this, arguments); })");
 
-			dynamicHandler = eval("(function("+args.join(",")+"){"+code+"})"); // new Function() doesn't respect scope
-
-			delegateClassDesc.addInstanceMethodWithSelector_function_(selector, dynamicHandler);
+			delegateClassDesc.addInstanceMethodWithSelector_function_(selector, dynamicFunction);
 		}
 	};
 
