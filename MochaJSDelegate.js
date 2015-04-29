@@ -30,13 +30,13 @@ var MochaJSDelegate = function(selectorHandlerDict){
 
 				if(!functionToCall) return;
 
-				functionToCall.apply(delegateClassDesc, arguments);
+				return functionToCall.apply(delegateClassDesc, arguments);
 			};
 
 			var args = [], regex = /:/g;
 			while(match = regex.exec(selectorString)) args.push("arg"+args.length);
 			
-			dynamicFunction = eval("(function("+args.join(",")+"){ dynamicHandler.apply(this, arguments); })");
+			dynamicFunction = eval("(function("+args.join(",")+"){ return dynamicHandler.apply(this, arguments); })");
 
 			delegateClassDesc.addInstanceMethodWithSelector_function_(selector, dynamicFunction);
 		}
