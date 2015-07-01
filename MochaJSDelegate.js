@@ -1,3 +1,11 @@
+//
+//  MochaJSDelegate.js
+//  MochaJSDelegate
+//
+//  Created by Matt Curtis
+//  Copyright (c) 2015. All rights reserved.
+//
+
 var MochaJSDelegate = function(selectorHandlerDict){
 	var uniqueClassName = "MochaJSDelegate_DynamicClass_" + NSUUID.UUID().UUIDString();
 
