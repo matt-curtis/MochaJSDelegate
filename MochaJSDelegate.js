@@ -1,5 +1,5 @@
 var MochaJSDelegate = function(selectorHandlerDict){
-	var uniqueClassName = "MochaJSDelegate_DynamicClass_"+new Date().getTime();
+	var uniqueClassName = "MochaJSDelegate_DynamicClass_" + NSUUID.UUID().UUIDString();
 
 	var delegateClassDesc = MOClassDescription.allocateDescriptionForClassWithName_superclass_(uniqueClassName, NSObject);
 	
