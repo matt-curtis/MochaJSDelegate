@@ -6,10 +6,12 @@
 //  Copyright (c) 2015. All rights reserved.
 //
 
-var MochaJSDelegate = function(selectorHandlerDict){
+var MochaJSDelegate = function(selectorHandlerDict, superclass){
 	var uniqueClassName = "MochaJSDelegate_DynamicClass_" + NSUUID.UUID().UUIDString();
-
-	var delegateClassDesc = MOClassDescription.allocateDescriptionForClassWithName_superclass_(uniqueClassName, NSObject);
+	
+	//	OPTIONAL: Allow subclassing of a superclass
+	superclass = superclass ? superclass : NSObject;
+	var delegateClassDesc = MOClassDescription.allocateDescriptionForClassWithName_superclass_(uniqueClassName, superclass);
 	
 	delegateClassDesc.registerClass();
 
