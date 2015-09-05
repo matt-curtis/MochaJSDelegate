@@ -11,41 +11,43 @@ How do I use it?
 
 The following example will create a `WebView` and set its frame delegate:
 
-    @import 'MochaJSDelegate.js'
+````javascript
+@import 'MochaJSDelegate.js'
 
-    /*
-        This is so our script's JSContext sticks around,
-        instead of being destroyed as soon as the current execution block is finished.
-    */
+/*
+    This is so our script's JSContext sticks around,
+    instead of being destroyed as soon as the current execution block is finished.
+*/
 
-    COScript.currentCOScript().setShouldKeepAround_(true);
+COScript.currentCOScript().setShouldKeepAround_(true);
 
-    //	Create a WebView
+//	Create a WebView
 
-    var webView = WebView.new();
+var webView = WebView.new();
 
-    //	Create a delegate
+//	Create a delegate
 
-    var delegate = new MochaJSDelegate({
-        "webView:didFinishLoadForFrame:": (function(webView, webFrame){
-            var app = [NSApplication sharedApplication];
-            [app displayDialog:"WebView Loaded!" withTitle:"Success!"];
-
-            COScript.currentCOScript().setShouldKeepAround_(false);
-        })
-    });
-
-    //	(You can also do this:)
-
-    delegate.setHandlerForSelector("webView:didFinishLoadForFrame:", function(webView, webFrame){
+var delegate = new MochaJSDelegate({
+    "webView:didFinishLoadForFrame:": (function(webView, webFrame){
         var app = [NSApplication sharedApplication];
         [app displayDialog:"WebView Loaded!" withTitle:"Success!"];
-    });
 
-    //	Set WebView's frame load delegate
+        COScript.currentCOScript().setShouldKeepAround_(false);
+    })
+});
 
-    webView.setFrameLoadDelegate_(delegate.getClassInstance());
-    webView.setMainFrameURL_("http://google.com/");
+//	(You can also do this:)
+
+delegate.setHandlerForSelector("webView:didFinishLoadForFrame:", function(webView, webFrame){
+    var app = [NSApplication sharedApplication];
+    [app displayDialog:"WebView Loaded!" withTitle:"Success!"];
+});
+
+//	Set WebView's frame load delegate
+
+webView.setFrameLoadDelegate_(delegate.getClassInstance());
+webView.setMainFrameURL_("http://google.com/");
+````
 
 There are a few other convience methods `MochaJSDelegate` makes available, for more information check out the source.
 
